@@ -1,0 +1,397 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />  
+ 
+         <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css"/>
+         <link rel="stylesheet" type="text/css" href="css/timetrial.css"/>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.3.min.css" />
+         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css"/> 
+        <link rel="stylesheet" type="text/css" href="css/dataTables.tableTools.css"/> 
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui-timepicker-addon.css"/> 
+        <link rel="stylesheet" type="text/css" href="css/my.css" /> 
+
+         <title>Time Trial</title>
+    </head>
+<body>
+
+    <div id="launcherPage" data-role="page">
+        <!-- I'm just here waiting for deviceReady -->
+    </div>
+    <div id="loginPage" data-role="page">
+        <div data-role="header">
+            <h1>Time Trial app</h1>
+        </div>
+        <p id="note1" class="notes">
+            Cycling Time Trial management.
+            For organisers it  manages entry lists, timing events and result calculations.
+            For riders it provides online results lists
+        </p>
+        <div id="note2" class="notes">
+            <i>For more details please sign up below </i>
+        </div>
+        <div data-role="content">
+            <form id="loginForm">
+                <div class="ui-field-contain ui-hide-label">
+                    <label for="username" style="float:left;width:33%">Username:</label>
+                    <input type="text" name="username" id="username" value="" style="width:50%" placeholder="Username" />
+                </div>
+                <div class="ui-field-contain ui-hide-label">
+                    <label for="password" style="float:left;width:33%">Password:</label>
+                    <input type="password" name="password" id="password" value="" style="width:50%" placeholder="Password" />
+                </div>
+                <div class="ui-field-contain">
+                    <input type="submit" value="Login" id="submitButton">
+                </div>
+            </form>
+        </div>
+        <a data-role="button" id="newSignup">...or sign up</a>
+
+        <div data-role="footer">
+            <h4>&copy; Quilkin 2015</h4>
+        </div>
+    </div>
+
+    <div id="signupPage" data-role="page">
+        <div data-role="header">
+            <h1>Sign up to view results</h1>
+        </div>
+        <div data-role="content">
+            <form id="signupForm">
+                <div class="ui-field-contain ui-hide-label">
+                    <label for="username" style="float:left;width:33%">Username:</label>
+                    <input type="text" name="username" id="username1" value="" style="width:67%" placeholder="Username" />
+                </div>
+                <div class="ui-field-contain ui-hide-label">
+                    <label for="userEmail" style="float:left;width:33%">Email :</label>
+                    <input type="email" name="email" id="userEmail" value="" style="float:left;width:67%" placeholder="Email address" />
+                </div>
+                <div class="ui-field-contain ui-hide-label">
+                    <label for="password1" style="float:left;width:33%">Password :</label>
+                    <input type="password" name="password1" id="password1" value="" style="float:left;width:67%" placeholder="Password (4-10 characters)" />
+                </div>
+                <div class="ui-field-contain ui-hide-label">
+                    <label for="password2" style="float:left;width:33%">Confirm Password :</label>
+                    <input type="password" name="password2" id="password2" value="" style="float:left;width:67%" placeholder="Confirm Password" />
+                </div>
+                <div class="ui-field-contain">
+                    <label for="code" id="lblCode" style="float:left;width:33%">Code from email:</label>
+                    <input type="number" name="code" id="code" value="" style="float:left;width:33%" />
+                </div>
+                <div class="ui-field-contain">
+                    <input type="submit" value="Sign Up" id="submitSignUp">
+                </div>
+            </form>
+        </div>
+
+        <div data-role="footer">
+            <h4>&copy; Quilkin 2015</h4>
+        </div>
+    </div>
+
+    <div data-role="page" id="home">
+        <div data-role="content">
+            <div class="realtime">Time</div>
+            <ul data-role="listview" data-inset="true">
+                <li id="loadEvent" class="ui-btn ui-btn-icon-right">Find an event</li>
+                <li id="manage" class="ui-btn ui-btn-icon-right">Event Management</li>
+                <li id="theday" class="ui-btn ui-btn-icon-right">Event on the day</li>
+                <li id="ridersclubs" class="ui-btn ui-btn-icon-right">Riders & Clubs</li>
+            </ul>
+            <div id="help" class="notes">
+                <a id="manual">Instructions</a>
+                <p />
+                <a id="googlegroup"><i>beta version: Google groups forum for comments</i></a>
+                <p/>
+                <a href="mailto:admin@timetrials.org.uk">Email</a>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="eventManage">
+        <div data-role="header">   <h1>event Management</h1>   </div>
+        <div data-role="content">
+            <h2 id="eventDetails">Event</h2>
+            <ul data-role="listview" data-inset="true">
+                <li id="addEvent" class="ui-btn ui-btn-icon-right">Create new event</li>
+                <li id="addEvRider" class="ui-btn ui-btn-icon-right">Add riders to event</li>
+                <li id="saveEvent1" class="ui-btn ui-btn-icon-right">Save event</li>
+                <li id="displayEvent" class="ui-btn ui-btn-icon-right">Check Entry List</li>
+                <li id="sortEvent" class="ui-btn ui-btn-icon-right">Sort (seed) Entry List</li>
+                <li id="updateEventTimes" class="ui-btn ui-btn-icon-right">Update event times</li>
+
+            </ul>
+        </div>
+    </div>
+    <div data-role="page" id="onTheDay">
+        <div data-role="header"> <a href="#home">Back</a> <h1>'On the Day'</h1>   </div>
+        <div data-role="content">
+            <div class="realtime">Time</div>
+            <ul data-role="listview" data-inset="true">
+                <li id="startLine" class="ui-btn ui-btn-icon-right">Start Line Control</li>
+                <li id="finLine" class="ui-btn ui-btn-icon-right">Finish Line Control</li>
+                <li id="showResults" class="ui-btn ui-btn-icon-right">Results Page</li>
+                <li id="saveEvent2" class="ui-btn ui-btn-icon-right">Save event</li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="page" id="ridersClubs">
+        <div data-role="header">   <h1>Rider & Clubs</h1>   </div>
+        <div data-role="content">
+            <div class="realtime">Time</div>
+            <ul data-role="listview" data-inset="true">
+                <li id="getRiderData" class="ui-btn ui-btn-icon-right">Re-load Rider & Club data</li>
+                <li id="displayRiderList" class="ui-btn ui-btn-icon-right">Rider List</li>
+                <li id="displayClubList" class="ui-btn ui-btn-icon-right">Club List</li>
+                <li id="saveRiderData" class="ui-btn ui-btn-icon-right">Save Rider & Club data</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div data-role="page" id="addEventPage">
+        <div data-role="header">
+            <h1>Create new Event</h1>
+        </div>
+        <div>
+            <a data-role="button" data-mini="true" id="chooseNewEventClub">Choose club for event</a>
+            <a data-role="button" data-mini="true" id="chooseNewEventCourse">Choose course for event</a>
+        </div>
+        <p id="addEventTables" style="text-align:center;" />
+        <div>
+            <input id="startDate" type="hidden" />
+            <a data-role="button" data-mini="true" id="btnStartDate">Date of event</a>
+        </div>
+        <div>
+            <input id="startTime" type="hidden" value="Time of event" />
+            <a data-role="button" data-mini="true" id="btnStartTime">08:00</a>
+        </div>
+        <div>
+            <a data-role="button" id="eventSubmit">Save new event</a>
+        </div>
+    </div>
+
+    <div data-role="page" id="loadEventPage">
+        <div data-role="header">
+            <h1>Load existing Event</h1>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">  <label for="chooseEventClub" style="float:right">Select event by club:</label>     </div>
+            <div class="ui-block-b">   <a data-role="button" data-mini="true" id="chooseEventClub">Club</a>   </div>
+            <p id="loadEventTables" style="text-align:center;" />
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">  <label for="chooseEventCourse" style="float:right">Select event by course:</label>     </div>
+            <div class="ui-block-b">   <a data-role="button" data-mini="true" id="chooseEventCourse">Course</a>  </div>
+            <p id="loadEventTables" style="text-align:center;" />
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">  <label for="fromDate" style="float:right">Event date after:</label>     </div>
+            <div class="ui-block-b">
+                <input id="fromDate" type="hidden" />
+                <a data-role="button" data-mini="true" id="btnFromDate">after....</a>
+            </div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">  <label for="toDate" style="float:right">Event date before:</label>     </div>
+            <div class="ui-block-b">
+                <input id="toDate" type="hidden" />
+                <a data-role="button" data-mini="true" id="btnToDate">before...</a>
+            </div>
+        </div>
+        <!--<div><a data-role="button" id="eventSearch">Search for event</a></div-->
+        <p id="eventsTable" />
+    </div>
+    
+    <div data-role="page" id="entrypage">
+        <div data-role="header">
+            <h1>Entry List</h1>
+        </div>
+        <p id="entriesTable">No entries loaded</p>
+        <a id="btnEmailStart" class="ui-btn ui-btn-icon-right">Email Start Sheet</a>
+    </div>
+
+    <div data-role="page" id="timesPage">
+        <div data-role="header">
+            <h1>Add or update times for event</h1>
+        </div>
+        <p id="timesTable">No entries loaded</p>
+        <div class="ui-grid-b">
+            <div class="ui-block-a"><label for="riderTime" id="riderTimeLabel">Result Time:</label></div>
+            <div class="ui-block-b"><input type="time" id="riderTime" /></div>
+            <div class="ui-block-c"><a data-role="button" id="saveRiderTime">Save Time</a></div>
+            <div class="ui-block-a"><a data-role="button" id="dns">Did not start</a></div>
+            <div class="ui-block-b"><a data-role="button" id="dnf">Did not finish</a></div>
+        </div>
+    </div>
+
+    <div data-role="page" id="resultpage">
+        <div data-role="header">
+            <h1 id="resultsTitle">Results</h1>
+        </div>
+
+        <p id="resultsTable" style="font-family:Verdana;font-size:20px;">No event loaded</p>
+        <a id="btnEmailResults" class="ui-btn ui-btn-icon-right">Email Result Sheet</a>
+        <p id="clubResultsTable" style="font-family:Verdana;font-size:20px;">No event loaded</p>
+
+    </div>
+
+    <div data-role="page" id="startLinePage">
+        <div data-role="header">
+            <h1>Start Line</h1>
+        </div>
+        <div class="realtime">Time</div>
+        <a data-role="button" id="btnSyncStart">Sync Start Time</a>
+    </div>
+
+    <div data-role="page" data-add-back-btn="false" id="finishLine">
+        <div data-role="header"><a href="#onTheDay">Back</a> <h1>Finish Line</h1>   </div>
+        <div class="realtime">...</div>
+        <div>
+            <a class="bigbutton ui-btn ui-btn-icon-right" id="btnFinish"><p>Finished<br />at....</p></a>
+        </div>
+        <div data-role="content">
+            <div class="ui-grid-b" id="buttonArray"> </div>
+        </div>
+        <audio src="res/beep_mp3.mp3" id="finish"></audio>
+    </div>
+
+
+    <div data-role="page" id="ridersPage">
+        <div data-role="header">
+            <h1>Riders</h1>
+        </div>
+        <p id="ridersTable">No riders loaded</p>
+    </div>
+
+    <div data-role="page" id="clubsPage">
+        <div data-role="header">
+            <h1>Clubs</h1>
+        </div>
+        <p id="clubs2Table">No clubs loaded</p>
+    </div>
+
+    <div data-role="page" id="addRiderPage">
+        <div data-role="header">
+            <h1 id="addRiderTitle">Add new Rider</h1>
+        </div>
+        <div>
+            <h4 id="newRiderTable" style="text-align:center; color:blue" ; />
+            <h4 id="riderClubTable" style="text-align:center; color:green" />
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">  <a data-role="button" id="btnNewRider">Confirm New Rider?</a>  </div>
+            <div class="ui-block-b">  <a data-role="button" id="btnAlreadyIn">Already in event?</a>   </div>
+        </div>
+        <a data-role="button" id="btnNewClub">Confirm New Club?</a>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"> <label for="riderAge">Age:</label></div>
+            <div class="ui-block-b"> <input type="number" id="riderAge" value="0" min="10" max="99" /></div>
+        </div>
+        <!--<div class="ui-grid-a">
+            <div class="ui-block-a"><label for="riderEditClub" id="lblRiderClub">Rider's club:</label></div>
+            <div class="ui-block-b"><input type="text" id="riderEditClub" /></div>
+        </div>-->
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><label for="riderStartNumber" id="lblRiderStart">Rider number:</label></div>
+            <div class="ui-block-b"><input type="number" id="riderStartNumber" /></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><label> <input type="checkbox" id="checkLady" class="custom" />Lady?</label></div>
+            <div class="ui-block-b"><label> <input type="checkbox" id="checkIn" class="custom" />InEvent?</label> </div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><label for="riderRideTime" id="lblRideTime">Result Time:</label></div>
+            <div class="ui-block-b"><input type="time" id="riderRideTime" /></div>
+        </div>
+        <div class="ui-grid-c">
+            <div class="ui-block-a"><a></a></div>
+            <div class="ui-block-b"><a></a></div>
+            <div class="ui-block-c"><a data-role="button" id="dns1">Did not start</a></div>
+            <div class="ui-block-d"><a data-role="button" id="dnf1">Did not finish</a></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><label for="riderEmail" id="Label1">Email:</label></div>
+            <div class="ui-block-b"><input type="text" id="riderEmail" /></div>
+        </div>
+        <div class="ui-field-contain">
+            <a data-role="button" id="btnAddRider">Add Rider</a>
+        </div>
+    </div>
+
+    <div data-role="page" id="riderDetailsPage">
+        <div data-role="header">
+            <h1 id="headerDetails">Rider Details</h1>
+        </div>
+
+        <div data-role="content">
+            <table class="rider">
+                <tr><td class="gridL">Club:</td>           <td class="gridR" id="club">...</td>      </tr>
+                <tr><td class="gridL">Category:</td>       <td class="gridR" id="cat">...</td>       </tr>
+                <tr><td class="gridL">Database ID:</td>    <td class="gridR" id="riderID">...</td>   </tr>
+                <tr><td class="gridL">Age:</td>            <td class="gridR" id="age">...</td>       </tr>
+                <tr><td class="gridL">Email:</td>          <td class="gridR" id="email">...</td>     </tr>
+                <tr><td class="gridL">Best '25' time:</td> <td class="gridR" id="time25">...</td>    </tr>
+                <tr><td class="gridL">Vet Std Time:</td>   <td class="gridR" id="vetstd">...</td>    </tr>
+                <tr><td class="gridL"></td>                <td class="gridR"></td>                   </tr>
+                <tr><th>This event:</th></tr>
+                <tr><td class="gridL">Start Number:</td>   <td class="gridR" id="number">...</td>    </tr>
+                <tr><td class="gridL">Start Time:</td>     <td class="gridR" id="start">...</td>     </tr>
+                <tr><td class="gridL">Result Time:</td>    <td class="gridR" id="time">...</td>      </tr>
+                <tr><td class="gridL">Vet 'On Std':</td>   <td class="gridR" id="vetonstd">...</td>  </tr>
+            </table>
+        </div>
+        <div class="ui-field-contain">
+            <a id="editRider" data-role="button">Edit Rider</a>
+        </div>
+    </div>
+
+
+    <div data-role="page" id="riderFinishPage">
+        <div data-role="header">
+            <h1>Rider Finished</h1>
+        </div>
+
+        <div data-role="content">
+            <div class="realtime">Time</div>
+
+            <div id="riderFinish">
+                <h2 id="rname"></h2>
+                <!--<h1 id="rnumber"></h1>-->
+            </div>
+
+            <div id="fTimes"> </div>
+            <!--                 <div class="ui-field-contain">
+                                <a onclick="ttApp.changePage('finishLine')" data-role="button" id="A5" >Cancel</a>
+                             </div>-->
+        </div>
+    </div>
+
+    <script src="cordova.js"></script>
+    <script src="scripts/jquery-1.11.1.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.3.min.js"></script>
+    <script src="scripts/jquery.dataTables.min.js"></script>
+    <script src="scripts/dataTables.tableTools.min.js"></script>
+    <script src="scripts/jquery-ui-timepicker-addon.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/fastclick.js"></script>
+    <script src="scripts/popups.js"></script>
+    <script src="scripts/myTable.js"></script>
+    <script src="scripts/timesdates.js"></script>
+    <script src="scripts/entry-course.js"></script>
+    <script src="scripts/rider.js"></script>
+    <script src="scripts/AddRider.js"></script>
+    <script src="scripts/AddClub.js"></script>
+    <script src="scripts/TTdata.js"></script>
+    <script src="scripts/event.js"></script>
+    <script src="scripts/EventList.js"></script>
+    <script src="scripts/FinishLine.js"></script>
+    <!--<script src="scripts/riderdetails.js"></script>
+    <script src="scripts/powerManagement.js"></script>-->
+    <script src="scripts/login.js"></script>
+</body>
+</html>
+
